@@ -2,19 +2,14 @@
 #include "Player.hpp"
 
 int main() {
-    // Создаем окно
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Celeste");
 
-    // Загружаем текстуру игрока
     sf::Texture playerTexture;
     if (!playerTexture.loadFromFile("MadeLine.png")) {
         return -1;
     }
 
-    // Создаем игрока
     Player player(playerTexture);
-    
-    // Создаем несколько объектов "пол"
     std::vector<sf::RectangleShape> grounds;
 
     // Пол
@@ -27,10 +22,14 @@ int main() {
     ground2.setFillColor(sf::Color::Black);
     ground2.setPosition(0.0f, 1030.0f);
     grounds.push_back(ground2);
-    // Часы для времени между кадрами
+
+    sf::RectangleShape wall(sf::Vector2f(50.0f, -500.0f));
+    wall.setFillColor(sf::Color::Black);
+    wall.setPosition(1800.0f, 1000.0f);
+    grounds.push_back(wall);
+
     sf::Clock clock;
 
-    // Основной игровой цикл
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -38,26 +37,18 @@ int main() {
                 window.close();
         }
 
-        // Время между кадрами
         float deltaTime = clock.restart().asSeconds();
 
-        // Обновляем игрока
         player.update(deltaTime);
-
-        // Проверяем коллизии со всеми объектами "пола"
         player.checkCollision(grounds);
 
 
-        // Очистка экрана
         window.clear(sf::Color::White);
 
-        // Отрисовываем все объекты "пол"
         for (const auto& ground : grounds) {
             window.draw(ground);
         }
         window.draw(player.getSprite());
-
-        // Отображение
         window.display();
     }
 
