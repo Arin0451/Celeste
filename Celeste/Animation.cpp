@@ -11,7 +11,7 @@ void Animation::update(float deltaTime, bool faceRight) {
 
     if (totalTime >= switchTime) {
         totalTime -= switchTime;
-        currentFrame.x++;
+        currentFrame.x+=1;
 
         if (currentFrame.x >= frameCount.x) {
             currentFrame.x = 0; // Возврат к первому кадру
@@ -23,15 +23,13 @@ void Animation::update(float deltaTime, bool faceRight) {
     uvRect.left = currentFrame.x * uvRect.width;
 
     if (!faceRight) {
-        uvRect.left += uvRect.width;
-        uvRect.width = -std::abs(uvRect.width);
+        row = 1;
     } else {
-        uvRect.width = std::abs(uvRect.width);
+        row = 0;
     }
 }
 
-void Animation::setRow(unsigned int row) {
-    this->row = row;
+void Animation::resetFrame() {
     currentFrame.x = 0; // Сбрасываем текущий кадр
 }
 

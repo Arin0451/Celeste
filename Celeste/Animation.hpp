@@ -7,7 +7,7 @@ public:
     Animation(const sf::Texture& texture, const sf::Vector2u& frameCount, float switchTime);
 
     void update(float deltaTime, bool faceRight);
-    void setRow(unsigned int row);
+    void resetFrame();
 
     const sf::IntRect& getUVRect() const;
 

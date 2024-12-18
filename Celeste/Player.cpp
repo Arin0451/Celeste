@@ -7,13 +7,15 @@ onGround(false),
 jumpHeight(600.0f),      // Начальная сила прыжка
 airControlSpeed(150.0f), // Скорость движения в воздухе
 gravity(980.0f),         // Сила гравитации
-fastFallMultiplier(1.5f), // Множитель для ускоренного падения
+fastFallMultiplier(2.0f), // Множитель для ускоренного падения
 maxFallSpeed(1000.0f),    // Ограничение скорости падения
 jumpPressed(false),
-animation(texture, sf::Vector2u(14, 1), 0.1f), // Инициализация анимации
+animation(texture, sf::Vector2u(13, 2), 0.1f), // Инициализация анимации
 faceRight(true) {
     sprite.setPosition(400.0f, 300.0f);  // Начальная позиция
     sprite.setScale(4.0f, 4.0f);
+    sf::FloatRect bounds = sprite.getGlobalBounds();
+    sprite.setTextureRect(sf::IntRect(0, 0, 12, 18));
 }
 
 void Player::update(float deltaTime) {
@@ -21,22 +23,25 @@ void Player::update(float deltaTime) {
     applyGravity(deltaTime);  // Применение гравитации
 
     // Обновление анимации
-    animation.update(deltaTime, faceRight);
-    sprite.setTextureRect(animation.getUVRect());
+
 }
 
 void Player::handleInput(float deltaTime) {
     // Управление на земле и в воздухе
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
         sprite.move(-speed * (onGround ? 1 : 0.7f) * deltaTime, 0.0f);  // В воздухе скорость меньше
-        
+        faceRight = 0;
+        animation.update(deltaTime, faceRight);
+        sprite.setTextureRect(animation.getUVRect());
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
         sprite.move(speed * (onGround ? 1 : 0.7f) * deltaTime, 0.0f);  // В воздухе скорость меньше
-       
+        faceRight = 1;
+        animation.update(deltaTime, faceRight);
+        sprite.setTextureRect(animation.getUVRect());
     }
     if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        
+        animation.resetFrame();
     }
 
 

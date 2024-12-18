@@ -7,7 +7,7 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Celeste");
 
     sf::Texture playerTexture;
-    if (!playerTexture.loadFromFile("assets/textures/TEXTURE.png")) {
+    if (!playerTexture.loadFromFile("assets/textures/runLeftAndRight.png")) {
         return -1;
     }
 
