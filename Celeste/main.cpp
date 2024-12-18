@@ -10,8 +10,10 @@ int main() {
     if (!playerTexture.loadFromFile("assets/textures/runLeftAndRight.png")) {
         return -1;
     }
-
-
+    sf::Texture ground_texture;
+    if (!ground_texture.loadFromFile("assets/textures/ground.png"))
+        return -1;
+    ground_texture.setRepeated(true);
 
     Player player(playerTexture);
 

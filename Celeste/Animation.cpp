@@ -2,9 +2,10 @@
 
 Animation::Animation(const sf::Texture& texture, const sf::Vector2u& frameCount, float switchTime)
     : frameCount(frameCount), switchTime(switchTime), totalTime(0.0f), row(0) {
-    uvRect.width = texture.getSize().x / frameCount.x;
-    uvRect.height = texture.getSize().y / frameCount.y;
-}
+    uvRect.width = 15;
+    uvRect.height = 18;
+
+}// ядбхцюрэ он гюдюммнлс хйяс
 
 void Animation::update(float deltaTime, bool faceRight) {
     totalTime += deltaTime;

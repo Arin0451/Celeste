@@ -10,19 +10,20 @@ gravity(980.0f),         // Сила гравитации
 fastFallMultiplier(2.0f), // Множитель для ускоренного падения
 maxFallSpeed(1000.0f),    // Ограничение скорости падения
 jumpPressed(false),
-animation(texture, sf::Vector2u(13, 2), 0.1f), // Инициализация анимации
+animation(texture, sf::Vector2u(14, 2), 0.1f), // Инициализация анимации
 faceRight(true) {
     sprite.setPosition(400.0f, 300.0f);  // Начальная позиция
     sprite.setScale(4.0f, 4.0f);
     sf::FloatRect bounds = sprite.getGlobalBounds();
-    sprite.setTextureRect(sf::IntRect(0, 0, 12, 18));
+    
 }
 
 void Player::update(float deltaTime) {
     handleInput(deltaTime);  // Передаем deltaTime
     applyGravity(deltaTime);  // Применение гравитации
 
-    // Обновление анимации
+
+    sprite.setTextureRect(animation.getUVRect());
 
 }
 
@@ -41,7 +42,8 @@ void Player::handleInput(float deltaTime) {
         sprite.setTextureRect(animation.getUVRect());
     }
     if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        animation.resetFrame();
+       // animation.resetFrame();
+        sprite.setTextureRect(animation.getUVRect());
     }
 
 
