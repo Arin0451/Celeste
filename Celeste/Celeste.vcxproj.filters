@@ -55,5 +55,8 @@
     <Image Include="assets\textures\TEXTURE.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
+    <Image Include="assets\textures\runLeftAndRight.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
   </ItemGroup>
 </Project>

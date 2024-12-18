@@ -8,7 +8,7 @@ public:
 
     void update(float deltaTime, bool faceRight);
     void setRow(unsigned int row);
-
+    void manualFrame(int column);
     const sf::IntRect& getUVRect() const;
 
 private:

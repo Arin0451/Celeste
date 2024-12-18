@@ -10,30 +10,56 @@ gravity(980.0f),         // Сила гравитации
 fastFallMultiplier(1.5f), // Множитель для ускоренного падения
 maxFallSpeed(1000.0f),    // Ограничение скорости падения
 jumpPressed(false),
-animation(texture, sf::Vector2u(14, 1), 0.1f), // Инициализация анимации
+isMoving(false),
+animation(texture, sf::Vector2u(14, 2), 0.1f), // Инициализация анимации
 faceRight(true) {
     sprite.setPosition(400.0f, 300.0f);  // Начальная позиция
     sprite.setScale(4.0f, 4.0f);
 }
 
 void Player::update(float deltaTime) {
-    handleInput(deltaTime);  // Передаем deltaTime
-    applyGravity(deltaTime);  // Применение гравитации
+    handleInput(deltaTime);  // Обрабатываем ввод
+    applyGravity(deltaTime); // Применяем гравитацию
 
-    // Обновление анимации
-    animation.update(deltaTime, faceRight);
+    // Логика анимации
+    if (isMoving) {
+        if (faceRight) {
+            animation.setRow(0); // Первый ряд — бег направо
+        }
+        else {
+            animation.setRow(1); // Второй ряд — бег налево
+        }
+        animation.update(deltaTime, faceRight);
+    }
+    else {
+        // Показываем первый кадр текущего ряда
+        animation.manualFrame(0);
+    }
+
+    // Обновляем текстуру спрайта
     sprite.setTextureRect(animation.getUVRect());
 }
 
 void Player::handleInput(float deltaTime) {
-    // Управление на земле и в воздухе
+    isMoving = false;
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
         sprite.move(-speed * (onGround ? 1 : 0.7f) * deltaTime, 0.0f);  // В воздухе скорость меньше
-        
+        isMoving = true;
+        if (faceRight) {
+            faceRight = false;  // Смена направления
+            animation.setRow(1); // Переключаем на второй ряд (влево)
+            animation.manualFrame(0); // Сбрасываем на первый кадр
+        }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
         sprite.move(speed * (onGround ? 1 : 0.7f) * deltaTime, 0.0f);  // В воздухе скорость меньше
-       
+        isMoving = true;
+        if (!faceRight) {
+            faceRight = true;   // Смена направления
+            animation.setRow(0); // Переключаем на первый ряд (вправо)
+            animation.manualFrame(0); // Сбрасываем на первый кадр
+        }
     }
     if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
         
