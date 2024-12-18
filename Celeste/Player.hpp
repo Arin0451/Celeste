@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "GameObject.hpp"
+#include "Animation.hpp"
 
 class Player : public GameObject {
 public:
@@ -30,4 +31,7 @@ private:
     float gravity;              // Сила гравитации
     float fastFallMultiplier;   // Множитель для ускоренного падения
     float maxFallSpeed;         // Ограничение максимальной скорости падения
+    
+    Animation animation; // Объект анимации
+    bool faceRight;     // Направление игрока
 };

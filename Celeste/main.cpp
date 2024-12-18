@@ -1,15 +1,20 @@
 ﻿#include <SFML/Graphics.hpp>
 #include "Player.hpp"
+#include <iostream>
+using namespace std;
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Celeste");
 
     sf::Texture playerTexture;
-    if (!playerTexture.loadFromFile("MadeLine.png")) {
+    if (!playerTexture.loadFromFile("assets/textures/TEXTURE.png")) {
         return -1;
     }
 
+
+
     Player player(playerTexture);
+
     std::vector<sf::RectangleShape> grounds;
 
     // Пол
@@ -44,6 +49,24 @@ int main() {
 
 
         window.clear(sf::Color::White);
+
+        // Создание фона
+        sf::Texture backgroundTexture;
+        if (!backgroundTexture.loadFromFile("Background.png")) {
+            std::cerr << "Failed to load background texture!" << std::endl;
+            return -1;
+        }
+        sf::Sprite backgroundSprite(backgroundTexture);
+        
+        // Масштабирование спрайта фона, чтобы он занимал весь экран
+        backgroundSprite.setScale(
+            static_cast<float>(window.getSize().x) / backgroundTexture.getSize().x,
+            static_cast<float>(window.getSize().y) / backgroundTexture.getSize().y
+        );
+
+        window.draw(backgroundSprite);
+
+        sf::Clock clock;
 
         for (const auto& ground : grounds) {
             window.draw(ground);

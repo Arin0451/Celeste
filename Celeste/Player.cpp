@@ -9,24 +9,36 @@ airControlSpeed(150.0f), // Скорость движения в воздухе
 gravity(980.0f),         // Сила гравитации
 fastFallMultiplier(1.5f), // Множитель для ускоренного падения
 maxFallSpeed(1000.0f),    // Ограничение скорости падения
-jumpPressed(false) {
+jumpPressed(false),
+animation(texture, sf::Vector2u(14, 1), 0.1f), // Инициализация анимации
+faceRight(true) {
     sprite.setPosition(400.0f, 300.0f);  // Начальная позиция
-    sprite.setScale(0.2f, 0.2f);
+    sprite.setScale(4.0f, 4.0f);
 }
 
 void Player::update(float deltaTime) {
     handleInput(deltaTime);  // Передаем deltaTime
     applyGravity(deltaTime);  // Применение гравитации
+
+    // Обновление анимации
+    animation.update(deltaTime, faceRight);
+    sprite.setTextureRect(animation.getUVRect());
 }
 
 void Player::handleInput(float deltaTime) {
     // Управление на земле и в воздухе
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
         sprite.move(-speed * (onGround ? 1 : 0.7f) * deltaTime, 0.0f);  // В воздухе скорость меньше
+        
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
         sprite.move(speed * (onGround ? 1 : 0.7f) * deltaTime, 0.0f);  // В воздухе скорость меньше
+       
     }
+    if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+        
+    }
+
 
     // Прыжок
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
