@@ -19,11 +19,15 @@ public:
     // Проверка столкновений
     void checkCollision(const std::vector<sf::RectangleShape>& grounds);
 
+    void performDash(float deltaTime);
+
 private:
     float speed;      // Скорость движения игрока
     float velocityY;  // Вертикальная скорость (для гравитации)
     bool onGround;    // Находится ли игрок на земле
     bool jumpPressed; // Отслеживает нажатие прыжка для управления прыжком
+    float maxJumpTime;  // Максимальное время удержания прыжка
+    float currentJumpTime;  // Текущее время удержания клавиши
 
     // Для улучшенного прыжка
     float jumpHeight;           // Максимальная высота прыжка
@@ -34,4 +38,14 @@ private:
     
     Animation animation; // Объект анимации
     bool faceRight;     // Направление игрока
+
+    bool dashAvailable;      // Доступность рывка
+    float dashSpeed;         // Скорость рывка
+    sf::Vector2f dashDirection; // Направление рывка
+    float dashTime;          // Длительность рывка
+    float currentDashTime;   // Текущее время рывка
+    bool isDashing;          // Выполняется ли рыво
+
+    
+
 };

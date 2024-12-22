@@ -2,10 +2,9 @@
 
 Animation::Animation(const sf::Texture& texture, const sf::Vector2u& frameCount, float switchTime)
     : frameCount(frameCount), switchTime(switchTime), totalTime(0.0f), row(0) {
-    uvRect.width = 15;
+    uvRect.width = 16;
     uvRect.height = 18;
-
-}// СДВИГАТЬ ПО ЗАДАННОМУ ИКСУ
+}
 
 void Animation::update(float deltaTime, bool faceRight) {
     totalTime += deltaTime;
@@ -15,7 +14,7 @@ void Animation::update(float deltaTime, bool faceRight) {
         currentFrame.x+=1;
 
         if (currentFrame.x >= frameCount.x) {
-            currentFrame.x = 0; // Возврат к первому кадру
+            currentFrame.x = 1; // Возврат к первому кадру
         }
     }
 
@@ -30,8 +29,8 @@ void Animation::update(float deltaTime, bool faceRight) {
     }
 }
 
-void Animation::resetFrame() {
-    currentFrame.x = 0; // Сбрасываем текущий кадр
+void Animation::setFrame(int number) {
+    currentFrame.x = number; // Сбрасываем текущий кадр
 }
 
 const sf::IntRect& Animation::getUVRect() const {
