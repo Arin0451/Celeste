@@ -30,6 +30,12 @@
     <ClCompile Include="Animation.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Spikes.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.hpp">
@@ -41,22 +47,39 @@
     <ClInclude Include="Animation.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Level.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Spikes.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="MadeLine.jpg">
-      <Filter>Файлы ресурсов</Filter>
-    </Image>
-    <Image Include="MadeLine.png">
-      <Filter>Файлы ресурсов</Filter>
-    </Image>
-    <Image Include="..\..\..\Downloads\Background.png">
-      <Filter>Файлы ресурсов</Filter>
-    </Image>
-    <Image Include="assets\textures\TEXTURE.png">
-      <Filter>Файлы ресурсов</Filter>
-    </Image>
     <Image Include="assets\textures\ground.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
+    <Image Include="assets\textures\runLeftAndRight.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="assets\textures\SplashScreen.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="SplashScreen.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="assets\textures\Background.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\textures\runLeftAndRightpng.psd" />
+    <None Include="Celeste.exe" />
+    <None Include="Celeste_boxed.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\level\level1.txt" />
   </ItemGroup>
 </Project>

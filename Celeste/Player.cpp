@@ -4,7 +4,7 @@ Player::Player(const sf::Texture& texture) : GameObject(texture),
 speed(350.0f),
 velocityY(0.0f),
 onGround(false),
-jumpHeight(300.0f * 1.3f),     // Начальная сила прыжка
+jumpHeight(400.0f * 1.3f),     // Начальная сила прыжка
 airControlSpeed(150.0f),       // Скорость движения в воздухе
 gravity(980.0f * 2.5f),        // Сила гравитации
 fastFallMultiplier(2.0f),      // Множитель для ускоренного падения
@@ -13,7 +13,7 @@ maxJumpTime(0.3f),             // Максимальное время для высокого прыжка
 currentJumpTime(0.0f),         // Изначально время прыжка равно нулю
 jumpPressed(false),
 dashAvailable(true),           // Рывок доступен
-dashSpeed(800.0f),             // Скорость рывка
+dashSpeed(900.0f),             // Скорость рывка
 dashTime(0.2f),                // Длительность рывка
 currentDashTime(0.0f),
 isDashing(false),
@@ -94,14 +94,7 @@ void Player::handleInput(float deltaTime) {
         }
         jumpPressed = false;  // Клавиша отпущена
     }
-    //if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) || ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)))) {
-    //    if (onGround) {
-    //        velocityY = -jumpHeight;  // Начальная сила прыжка
-    //        onGround = false;
-    //        animation.setFrame(3);
-    //    }
-    //    jumpPressed = true;
-    //}
+
 
      // Рывок
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) && dashAvailable && !isDashing) {
@@ -126,6 +119,7 @@ void Player::handleInput(float deltaTime) {
     }
 }
 
+
 void Player::applyGravity(float deltaTime) {
     if (!onGround) {
         velocityY += gravity * deltaTime;  // Применяем гравитацию
@@ -142,18 +136,56 @@ void Player::applyGravity(float deltaTime) {
     }
     sprite.move(0.0f, velocityY * deltaTime);
 }
+
+
 void Player::checkCollision(const std::vector<sf::RectangleShape>& grounds) {
-    onGround = false;
+    sf::FloatRect playerBounds = sprite.getGlobalBounds();
+    onGround = false;  // Изначально считаем, что игрок не на земле
+
+    sf::Vector2f newPosition = sprite.getPosition();
+
+    // Горизонтальные коллизии
     for (const auto& ground : grounds) {
-        if (sprite.getGlobalBounds().intersects(ground.getGlobalBounds())) {
-            onGround = true;
-            velocityY = 0.0f;
-            dashAvailable = true; // Рывок восстанавливается при соприкосновении с землёй
-            sprite.setPosition(sprite.getPosition().x, ground.getPosition().y - sprite.getGlobalBounds().height);
-            break;
+        sf::FloatRect groundBounds = ground.getGlobalBounds();
+
+        if (playerBounds.intersects(groundBounds)) {
+            // Движение вправо
+            if (velocityY == 0 && sprite.getPosition().x + playerBounds.width > groundBounds.left &&
+                sprite.getPosition().x < groundBounds.left && velocityY == 0) {
+                newPosition.x = groundBounds.left - playerBounds.width;  // Останавливаемся перед препятствием
+            }
+            // Движение влево
+            if (velocityY == 0 && sprite.getPosition().x < groundBounds.left + groundBounds.width &&
+                sprite.getPosition().x > groundBounds.left && velocityY == 0) {
+                newPosition.x = groundBounds.left + groundBounds.width;  // Останавливаемся с другой стороны препятствия
+            }
         }
     }
+
+    // Вертикальные коллизии
+    for (const auto& ground : grounds) {
+        sf::FloatRect groundBounds = ground.getGlobalBounds();
+
+        if (playerBounds.intersects(groundBounds)) {
+            // Если игрок падает сверху на платформу
+            if (velocityY > 0 && playerBounds.top + playerBounds.height <= groundBounds.top + 10.0f) {
+                onGround = true;
+                dashAvailable = true;  // Восстанавливаем рывок при соприкосновении с землёй
+                velocityY = 0.0f;  // Сбрасываем скорость падения
+                newPosition.y = groundBounds.top - playerBounds.height;  // Ставим игрока на платформу
+            }
+            // Если игрок прыгает и ударяется в нижнюю часть платформы
+            else if (velocityY < 0 && playerBounds.top >= groundBounds.top + groundBounds.height - 10.0f) {
+                velocityY = 0.0f;  // Останавливаем движение вверх
+                newPosition.y = groundBounds.top + groundBounds.height;  // Ставим игрока под платформу
+            }
+        }
+    }
+
+    // Обновляем позицию персонажа только после завершения всех проверок
+    sprite.setPosition(newPosition);
 }
+
 
 void Player::performDash(float deltaTime) {
     if (isDashing) {

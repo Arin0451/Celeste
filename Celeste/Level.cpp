@@ -1,27 +1,31 @@
-#include <SFML/Graphics.hpp>
-#include <vector>
-#include <string>
-#include "Player.hpp"
+#include "Level.hpp"
 
-// Создание уровня на основе схемы
-void loadLevel(const std::vector<std::string>& level,
-    std::vector<sf::RectangleShape>& grounds,
-    Player& player) {
-    const float TILE_SIZE = 50.0f; // Размер одной клетки
+Level::Level(const std::string& levelData, const sf::Texture& groundTexture) {
+    createLevel(levelData, groundTexture);
+}
 
-    for (size_t y = 0; y < level.size(); ++y) {
-        for (size_t x = 0; x < level[y].size(); ++x) {
-            char tile = level[y][x];
+void Level::createLevel(const std::string& levelData, const sf::Texture& groundTexture) {
+    float blockWidth = 50.0f;
+    float blockHeight = 50.0f;
 
-            if (tile == '#') { // Стена или платформа
-                sf::RectangleShape ground(sf::Vector2f(TILE_SIZE, TILE_SIZE));
-                ground.setFillColor(sf::Color::Black);
-                ground.setPosition(x * TILE_SIZE, y * TILE_SIZE);
-                grounds.push_back(ground);
-            }
-            else if (tile == 'P') { // Начальная позиция игрока
-                player.getSprite().setPosition(x * TILE_SIZE, y * TILE_SIZE);
-            }
+    for (int y = 0; y < levelData.size(); y++) {
+        char tile = levelData[y];
+
+        if (tile == '#') {  // Если символ '#' - это стена/земля
+            sf::RectangleShape block(sf::Vector2f(blockWidth, blockHeight));
+            block.setTexture(&groundTexture);
+            block.setPosition((y % 38) * blockWidth, (y / 38) * blockHeight); // Создание на основе координат
+            grounds.push_back(block);
         }
+    }
+}
+
+const std::vector<sf::RectangleShape>& Level::getGrounds() const {
+    return grounds;
+}
+
+void Level::draw(sf::RenderWindow& window) {
+    for (const auto& ground : grounds) {
+        window.draw(ground);
     }
 }

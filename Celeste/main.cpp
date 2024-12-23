@@ -1,80 +1,126 @@
 ﻿#include <SFML/Graphics.hpp>
 #include "Player.hpp"
+#include "Level.hpp"
+#include "Menu.hpp"
 #include <iostream>
-using namespace std;
+#include <vector>
+
+enum GameState { MENU, PLAYING, EXIT };
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Celeste");
 
+    // Создаем меню
+    std::vector<std::string> menuOptions = { "Play", "Exit" };
+    Menu menu(menuOptions, "assets/fonts/AtariClassic-gry3.ttf", { 850, 400 }, 50);
+
+    // Загрузка текстур
     sf::Texture playerTexture;
     if (!playerTexture.loadFromFile("assets/textures/runLeftAndRight.png")) {
+        std::cerr << "Failed to load player texture!" << std::endl;
         return -1;
     }
-    sf::Texture ground_texture;
-    if (!ground_texture.loadFromFile("assets/textures/ground.png"))
+
+    sf::Texture groundTexture;
+    if (!groundTexture.loadFromFile("assets/textures/ground.png")) {
+        std::cerr << "Failed to load ground texture!" << std::endl;
         return -1;
-    ground_texture.setRepeated(true);
+    }
+    groundTexture.setRepeated(true);
+
+    sf::Texture backgroundTexture;
+    if (!backgroundTexture.loadFromFile("assets/textures/Background.png")) {
+        std::cerr << "Failed to load background texture!" << std::endl;
+        return -1;
+    }
+
+    sf::Sprite backgroundSprite(backgroundTexture);
+    backgroundSprite.setScale(
+        static_cast<float>(window.getSize().x) / backgroundTexture.getSize().x,
+        static_cast<float>(window.getSize().y) / backgroundTexture.getSize().y
+    );
 
     Player player(playerTexture);
 
-    std::vector<sf::RectangleShape> grounds;
+    // Уровень
+    std::string levelData =
+        "......................................"
+        "......................................"
+        "......................................"
+        "......................................"
+        "......................................"
+        "......................................"
+        "......................................"
+        "......................................"
+        "......................................"
+        "......................................"
+        "...........................#.........."
+        "...........................#.........."
+        "...........................#.........."
+        "....................#####..#...####..."
+        "......................................"
+        "......................................"
+        ".............#####...................."
+        ".............#####...................."
+        ".............#####...................."
+        ".............#####...................."
+        "......................................"
+        "######################################"
+        "######################################";
 
-    // Пол
-    sf::RectangleShape ground1(sf::Vector2f(800.0f, 50.0f));
-    ground1.setFillColor(sf::Color::Black);
-    ground1.setPosition(0.0f, 550.0f);
-    grounds.push_back(ground1);
-
-    sf::RectangleShape ground2(sf::Vector2f(1920.0f, 50.0f));
-    ground2.setFillColor(sf::Color::Black);
-    ground2.setPosition(0.0f, 1030.0f);
-    grounds.push_back(ground2);
-
-    sf::RectangleShape wall(sf::Vector2f(50.0f, -500.0f));
-    wall.setFillColor(sf::Color::Black);
-    wall.setPosition(1800.0f, 1000.0f);
-    grounds.push_back(wall);
+    Level level(levelData, groundTexture);
 
     sf::Clock clock;
+
+    GameState currentState = MENU;
 
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
+
+            if (currentState == MENU && event.type == sf::Event::KeyPressed) {
+                if (event.key.code == sf::Keyboard::Up) {
+                    menu.moveUp();
+                }
+                else if (event.key.code == sf::Keyboard::Down) {
+                    menu.moveDown();
+                }
+                else if (event.key.code == sf::Keyboard::Enter) {
+                    int selected = menu.getSelectedOption();
+                    if (selected == 0) {
+                        currentState = PLAYING;
+                    }
+                    else if (selected == 1) {
+                        currentState = EXIT;
+                    }
+                }
+            }
         }
 
-        float deltaTime = clock.restart().asSeconds();
-
-        player.update(deltaTime);
-        player.checkCollision(grounds);
-
-
-        window.clear(sf::Color::White);
-
-        // Создание фона
-        sf::Texture backgroundTexture;
-        if (!backgroundTexture.loadFromFile("Background.png")) {
-            std::cerr << "Failed to load background texture!" << std::endl;
-            return -1;
+        if (currentState == EXIT) {
+            window.close();
         }
-        sf::Sprite backgroundSprite(backgroundTexture);
-        
-        // Масштабирование спрайта фона, чтобы он занимал весь экран
-        backgroundSprite.setScale(
-            static_cast<float>(window.getSize().x) / backgroundTexture.getSize().x,
-            static_cast<float>(window.getSize().y) / backgroundTexture.getSize().y
-        );
 
-        window.draw(backgroundSprite);
-
-        sf::Clock clock;
-
-        for (const auto& ground : grounds) {
-            window.draw(ground);
+        if (currentState == MENU) {
+            window.clear(sf::Color::White);
+            window.draw(backgroundSprite);
+            menu.draw(window);
+            window.display();
         }
-        window.draw(player.getSprite());
-        window.display();
+        else if (currentState == PLAYING) {
+            float deltaTime = clock.restart().asSeconds();
+
+            player.update(deltaTime);
+            player.checkCollision(level.getGrounds());
+
+            window.clear(sf::Color::White);
+            window.draw(backgroundSprite);
+            level.draw(window);
+            window.draw(player.getSprite());
+            window.display();
+        }
     }
 
     return 0;

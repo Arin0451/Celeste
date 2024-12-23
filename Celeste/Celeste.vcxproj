@@ -135,19 +135,32 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Spikes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
     <ClInclude Include="GameObject.hpp" />
+    <ClInclude Include="Level.hpp" />
+    <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Player.hpp" />
+    <ClInclude Include="Spikes.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\Downloads\Background.png" />
+    <Image Include="assets\textures\Background.png" />
     <Image Include="assets\textures\ground.png" />
-    <Image Include="assets\textures\TEXTURE.png" />
-    <Image Include="MadeLine.jpg" />
-    <Image Include="MadeLine.png" />
+    <Image Include="assets\textures\runLeftAndRight.png" />
+    <Image Include="assets\textures\SplashScreen.png" />
+    <Image Include="SplashScreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\textures\runLeftAndRightpng.psd" />
+    <None Include="Celeste.exe" />
+    <None Include="Celeste_boxed.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\level\level1.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

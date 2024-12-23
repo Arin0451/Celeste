@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "GameObject.hpp"
 #include "Animation.hpp"
+#include "Spikes.hpp"
+
 
 class Player : public GameObject {
 public:
@@ -20,6 +22,10 @@ public:
     void checkCollision(const std::vector<sf::RectangleShape>& grounds);
 
     void performDash(float deltaTime);
+
+    void checkCollisionWithSpikes(const std::vector<Spikes>& spikes);
+
+    void respawn();
 
 private:
     float speed;      // Скорость движения игрока
@@ -46,6 +52,6 @@ private:
     float currentDashTime;   // Текущее время рывка
     bool isDashing;          // Выполняется ли рыво
 
-    
+    sf::Vector2f spawnPoint;
 
 };
