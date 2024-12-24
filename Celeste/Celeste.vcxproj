@@ -138,7 +138,6 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Spikes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
@@ -146,7 +145,6 @@
     <ClInclude Include="Level.hpp" />
     <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Player.hpp" />
-    <ClInclude Include="Spikes.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\Background.png" />
@@ -159,11 +157,9 @@
     <Image Include="SplashScreen.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\sounds\FirstSteps.ogg" />
     <None Include="assets\textures\runLeftAndRightpng.psd" />
     <None Include="Celeste.exe" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="assets\level\level1.txt" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="assets\fonts\AtariClassic-gry3.ttf" />
@@ -182,6 +178,9 @@
     <Font Include="assets\fonts\PixelOperatorMonoHB8.ttf" />
     <Font Include="assets\fonts\PixelOperatorSC-Bold.ttf" />
     <Font Include="assets\fonts\PixelOperatorSC.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="assets\sounds\FirstSteps.mp3" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

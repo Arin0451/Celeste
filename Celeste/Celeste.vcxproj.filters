@@ -30,9 +30,6 @@
     <ClCompile Include="Animation.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Spikes.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="Menu.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -48,9 +45,6 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Level.hpp">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Spikes.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Menu.hpp">
@@ -86,9 +80,7 @@
   <ItemGroup>
     <None Include="assets\textures\runLeftAndRightpng.psd" />
     <None Include="Celeste.exe" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="assets\level\level1.txt" />
+    <None Include="assets\sounds\FirstSteps.ogg" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="assets\fonts\AtariClassic-gry3.ttf" />
@@ -107,5 +99,8 @@
     <Font Include="assets\fonts\PixelOperatorMonoHB8.ttf" />
     <Font Include="assets\fonts\PixelOperatorSC.ttf" />
     <Font Include="assets\fonts\PixelOperatorSC-Bold.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="assets\sounds\FirstSteps.mp3" />
   </ItemGroup>
 </Project>
