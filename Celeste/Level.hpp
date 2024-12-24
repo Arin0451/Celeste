@@ -5,12 +5,14 @@
 
 class Level {
 public:
-    Level(const std::string& levelData, const sf::Texture& groundTexture);
+    Level(const std::string& levelData, const sf::Texture& groundTexture, const sf::Texture& wallTexture);
 
     const std::vector<sf::RectangleShape>& getGrounds() const;
+    const sf::Vector2f& getSpawnPoint() const; // Новый геттер для точки спавна
     void draw(sf::RenderWindow& window);
 
 private:
     std::vector<sf::RectangleShape> grounds;
-    void createLevel(const std::string& levelData, const sf::Texture& groundTexture);
+    sf::Vector2f spawnPoint; // Точка спавна
+    void createLevel(const std::string& levelData, const sf::Texture& groundTexture, const sf::Texture& wallTexture);
 };

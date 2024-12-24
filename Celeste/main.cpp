@@ -8,11 +8,11 @@
 enum GameState { MENU, PLAYING, EXIT };
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(1920, 1080), "Celeste");
+    sf::RenderWindow window(sf::VideoMode(1900, 1080), "Celeste");
 
     // Создаем меню
     std::vector<std::string> menuOptions = { "Play", "Exit" };
-    Menu menu(menuOptions, "assets/fonts/AtariClassic-gry3.ttf", { 850, 400 }, 50);
+    Menu menu(menuOptions, "assets/fonts/PixelOperator8.ttf", { 850, 400 }, 50);
 
     // Загрузка текстур
     sf::Texture playerTexture;
@@ -26,7 +26,12 @@ int main() {
         std::cerr << "Failed to load ground texture!" << std::endl;
         return -1;
     }
-    groundTexture.setRepeated(true);
+
+    sf::Texture wallTexture;
+    if (!wallTexture.loadFromFile("assets/textures/wall.png")) {
+        std::cerr << "Failed to load wall texture!" << std::endl;
+        return -1;
+    }
 
     sf::Texture backgroundTexture;
     if (!backgroundTexture.loadFromFile("assets/textures/Background.png")) {
@@ -47,28 +52,28 @@ int main() {
         "......................................"
         "......................................"
         "......................................"
+        ".....................................@"
+        ".....................................@"
+        ".....................................@"
+        ".....................................@"
+        ".....................................@"
+        ".....................................@"
         "......................................"
-        "......................................"
-        "......................................"
-        "......................................"
-        "......................................"
-        "......................................"
-        "......................................"
-        "...........................#.........."
-        "...........................#.........."
-        "...........................#.........."
-        "....................#####..#...####..."
+        "...........................@.........."
+        "@@@........................@....P....."
+        "@@@...................#....@.........."
+        "@@@.................#####..@...####..."
         "......................................"
         "......................................"
         ".............#####...................."
-        ".............#####...................."
+        ".............#####.......@@@@....@@@.."
         ".............#####...................."
         ".............#####...................."
         "......................................"
         "######################################"
         "######################################";
 
-    Level level(levelData, groundTexture);
+    Level level(levelData, groundTexture, wallTexture);
 
     sf::Clock clock;
 
@@ -91,11 +96,17 @@ int main() {
                     int selected = menu.getSelectedOption();
                     if (selected == 0) {
                         currentState = PLAYING;
+                        player.respawn(level.getSpawnPoint()); // Респавн игрока в точке спавна
                     }
                     else if (selected == 1) {
                         currentState = EXIT;
                     }
                 }
+            }
+
+            // Обработка нажатия клавиши "R" для респавна
+            if (currentState == PLAYING && event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::R) {
+                player.respawn(level.getSpawnPoint());
             }
         }
 

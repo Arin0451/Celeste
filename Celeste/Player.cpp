@@ -5,7 +5,7 @@ speed(350.0f),
 velocityY(0.0f),
 onGround(false),
 jumpHeight(400.0f * 1.3f),     // Начальная сила прыжка
-airControlSpeed(150.0f),       // Скорость движения в воздухе
+airControlSpeed(350.0f),       // Скорость движения в воздухе
 gravity(980.0f * 2.5f),        // Сила гравитации
 fastFallMultiplier(2.0f),      // Множитель для ускоренного падения
 maxFallSpeed(1000.0f),         // Ограничение скорости падения
@@ -13,7 +13,7 @@ maxJumpTime(0.3f),             // Максимальное время для высокого прыжка
 currentJumpTime(0.0f),         // Изначально время прыжка равно нулю
 jumpPressed(false),
 dashAvailable(true),           // Рывок доступен
-dashSpeed(900.0f),             // Скорость рывка
+dashSpeed(1000.0f),             // Скорость рывка
 dashTime(0.2f),                // Длительность рывка
 currentDashTime(0.0f),
 isDashing(false),
@@ -96,6 +96,7 @@ void Player::handleInput(float deltaTime) {
     }
 
 
+
      // Рывок
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) && dashAvailable && !isDashing) {
         isDashing = true;
@@ -124,10 +125,10 @@ void Player::applyGravity(float deltaTime) {
     if (!onGround) {
         velocityY += gravity * deltaTime;  // Применяем гравитацию
 
-        // Ускоряем падение, если игрок падает
-        if (velocityY > 0) {
-            velocityY += gravity * (fastFallMultiplier - 1) * deltaTime;  // Ускоренное падение
-        }
+        //// Ускоряем падение, если игрок падает
+        //if (velocityY > 0) {
+        //    velocityY += gravity * (fastFallMultiplier - 1) * deltaTime;  // Ускоренное падение
+        //}
 
         // Ограничиваем максимальную скорость падения
         if (velocityY > maxFallSpeed) {
@@ -200,4 +201,15 @@ void Player::performDash(float deltaTime) {
             sprite.move(dashDirection * dashSpeed * deltaTime);
         }
     }
+}
+
+void Player::respawn(const sf::Vector2f& spawnPoint) {
+    sprite.setPosition(spawnPoint);
+    velocityY = 0.0f;
+    onGround = true;
+    dashAvailable = true;
+    isDashing = false;
+    currentDashTime = 0.0f;
+    currentJumpTime = 0.0f;
+    jumpPressed = false;
 }

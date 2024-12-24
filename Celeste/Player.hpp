@@ -25,7 +25,9 @@ public:
 
     void checkCollisionWithSpikes(const std::vector<Spikes>& spikes);
 
-    void respawn();
+    void respawn(const sf::Vector2f& spawnPoint);
+
+
 
 private:
     float speed;      // Скорость движения игрока
@@ -53,5 +55,4 @@ private:
     bool isDashing;          // Выполняется ли рыво
 
     sf::Vector2f spawnPoint;
-
 };
