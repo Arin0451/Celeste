@@ -208,3 +208,11 @@ void Player::respawn(const sf::Vector2f& spawnPoint) {
     jumpPressed = false;
 }
 
+bool Player::checkCollisionWithStrawberry(const std::vector<sf::RectangleShape>& strawberries) {
+    for (const auto& strawberry : strawberries) {
+        if (sprite.getGlobalBounds().intersects(strawberry.getGlobalBounds())) {
+            return true; // Если игрок столкнулся с клубничкой
+        }
+    }
+    return false; // Если нет столкновения
+}
