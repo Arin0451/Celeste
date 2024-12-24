@@ -1,11 +1,11 @@
 #include "Player.hpp"
 
 Player::Player(const sf::Texture& texture) : GameObject(texture),
-speed(350.0f),
+speed(400.0f),
 velocityY(0.0f),
 onGround(false),
 jumpHeight(400.0f * 1.3f),     // Начальная сила прыжка
-airControlSpeed(350.0f),       // Скорость движения в воздухе
+airControlSpeed(400.0f),       // Скорость движения в воздухе
 gravity(980.0f * 2.5f),        // Сила гравитации
 fastFallMultiplier(2.0f),      // Множитель для ускоренного падения
 maxFallSpeed(1000.0f),         // Ограничение скорости падения

@@ -73,6 +73,9 @@
     <Image Include="assets\textures\Background.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
+    <Image Include="assets\textures\wall.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\textures\runLeftAndRightpng.psd" />
@@ -81,5 +84,23 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\level\level1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\fonts\AtariClassic-gry3.ttf" />
+    <Font Include="assets\fonts\PixelOperator.ttf" />
+    <Font Include="assets\fonts\PixelOperator8.ttf" />
+    <Font Include="assets\fonts\PixelOperator8-Bold.ttf" />
+    <Font Include="assets\fonts\PixelOperator-Bold.ttf" />
+    <Font Include="assets\fonts\PixelOperatorHB.ttf" />
+    <Font Include="assets\fonts\PixelOperatorHB8.ttf" />
+    <Font Include="assets\fonts\PixelOperatorHBSC.ttf" />
+    <Font Include="assets\fonts\PixelOperatorMono.ttf" />
+    <Font Include="assets\fonts\PixelOperatorMono8.ttf" />
+    <Font Include="assets\fonts\PixelOperatorMono8-Bold.ttf" />
+    <Font Include="assets\fonts\PixelOperatorMono-Bold.ttf" />
+    <Font Include="assets\fonts\PixelOperatorMonoHB.ttf" />
+    <Font Include="assets\fonts\PixelOperatorMonoHB8.ttf" />
+    <Font Include="assets\fonts\PixelOperatorSC.ttf" />
+    <Font Include="assets\fonts\PixelOperatorSC-Bold.ttf" />
   </ItemGroup>
 </Project>
