@@ -36,6 +36,9 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Strawberry.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.hpp">
@@ -56,6 +59,9 @@
     <ClInclude Include="Menu.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Strawberry.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\ground.png">
@@ -74,6 +80,12 @@
       <Filter>Файлы ресурсов</Filter>
     </Image>
     <Image Include="assets\textures\wall.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="assets\textures\strawberry.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="assets\textures\helpground.jpg">
       <Filter>Файлы ресурсов</Filter>
     </Image>
   </ItemGroup>

@@ -35,6 +35,13 @@ int main() {
         return -1;
     }
 
+    sf::Texture strawberryTexture;
+    if (!strawberryTexture.loadFromFile("assets/textures/strawberry.png")) {
+        std::cerr << "Failed to load strawberry texture!" << std::endl;
+        return -1;
+    }
+
+
     sf::Texture groundTexture;
     if (!groundTexture.loadFromFile("assets/textures/ground.png")) {
         std::cerr << "Failed to load ground texture!" << std::endl;
@@ -85,8 +92,8 @@ int main() {
         ".....................................@"
         ".....................................@"
         "......................................"
-        "...........................@.........."
-        "@@@........................@....P....."
+        ".S.........................@.........."
+        "@@@...................S....@....P....."
         "@@@...................#....@.........."
         "@@@.................#####..@...####..."
         "......................................"
@@ -99,7 +106,8 @@ int main() {
         "######################################"
         "######################################";
 
-    Level level(levelData, groundTexture, wallTexture);
+
+    Level level(levelData, groundTexture, wallTexture, strawberryTexture);
 
     sf::Clock clock;
 
@@ -172,6 +180,7 @@ int main() {
             window.clear(sf::Color::White);
             window.draw(backgroundSprite);
             level.draw(window);
+
             window.draw(player.getSprite());
             window.display();
         }

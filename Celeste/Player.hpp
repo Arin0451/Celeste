@@ -3,6 +3,7 @@
 #include "GameObject.hpp"
 #include "Animation.hpp"
 #include "Spikes.hpp"
+#include "Strawberry.hpp"
 
 
 class Player : public GameObject {
@@ -27,7 +28,7 @@ public:
 
     void respawn(const sf::Vector2f& spawnPoint);
 
-
+    void checkCollisionWithStrawberries(const std::vector<Strawberry>& strawberries);
 
 private:
     float speed;      // Скорость движения игрока

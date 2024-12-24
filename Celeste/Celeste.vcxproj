@@ -138,6 +138,7 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Spikes.cpp" />
+    <ClCompile Include="Strawberry.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
@@ -146,12 +147,15 @@
     <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Spikes.hpp" />
+    <ClInclude Include="Strawberry.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\Background.png" />
     <Image Include="assets\textures\ground.png" />
+    <Image Include="assets\textures\helpground.jpg" />
     <Image Include="assets\textures\runLeftAndRight.png" />
     <Image Include="assets\textures\SplashScreen.png" />
+    <Image Include="assets\textures\strawberry.png" />
     <Image Include="assets\textures\wall.png" />
     <Image Include="SplashScreen.png" />
   </ItemGroup>

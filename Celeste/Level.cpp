@@ -1,10 +1,10 @@
 #include "Level.hpp"
 
-Level::Level(const std::string& levelData, const sf::Texture& groundTexture, const sf::Texture& wallTexture) {
-    createLevel(levelData, groundTexture, wallTexture );
+Level::Level(const std::string& levelData, const sf::Texture& groundTexture, const sf::Texture& wallTexture, const sf::Texture& strawberryTexture) {
+    createLevel(levelData, groundTexture, wallTexture, strawberryTexture);
 }
 
-void Level::createLevel(const std::string& levelData, const sf::Texture& groundTexture, const sf::Texture& wallTexture) {
+void Level::createLevel(const std::string& levelData, const sf::Texture& groundTexture, const sf::Texture& wallTexture, const sf::Texture& strawberryTexture) {
     float blockWidth = 50.0f;
     float blockHeight = 50.0f;
 
@@ -29,6 +29,12 @@ void Level::createLevel(const std::string& levelData, const sf::Texture& groundT
         else if (tile == 'P') {
             spawnPoint.x = (y % 38) * blockWidth;
             spawnPoint.y = (y / 38) * blockHeight;
+        }
+        else if (tile == 'S') {
+            sf::RectangleShape strawberry(sf::Vector2f(blockWidth, blockHeight+5));
+            strawberry.setTexture(&strawberryTexture); // Можно настроить текстуру клубнички
+            strawberry.setPosition((y % 38) * blockWidth, (y / 38) * blockHeight - 5);
+            grounds.push_back(strawberry); // Добавляем клубничку в список
         }
     }
 }

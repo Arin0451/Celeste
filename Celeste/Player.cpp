@@ -125,11 +125,6 @@ void Player::applyGravity(float deltaTime) {
     if (!onGround) {
         velocityY += gravity * deltaTime;  // Применяем гравитацию
 
-        //// Ускоряем падение, если игрок падает
-        //if (velocityY > 0) {
-        //    velocityY += gravity * (fastFallMultiplier - 1) * deltaTime;  // Ускоренное падение
-        //}
-
         // Ограничиваем максимальную скорость падения
         if (velocityY > maxFallSpeed) {
             velocityY = maxFallSpeed;
@@ -187,7 +182,6 @@ void Player::checkCollision(const std::vector<sf::RectangleShape>& grounds) {
     sprite.setPosition(newPosition);
 }
 
-
 void Player::performDash(float deltaTime) {
     if (isDashing) {
         // Продолжаем рывок
@@ -213,3 +207,4 @@ void Player::respawn(const sf::Vector2f& spawnPoint) {
     currentJumpTime = 0.0f;
     jumpPressed = false;
 }
+
