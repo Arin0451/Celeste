@@ -86,7 +86,6 @@
   <ItemGroup>
     <None Include="assets\textures\runLeftAndRightpng.psd" />
     <None Include="Celeste.exe" />
-    <None Include="Celeste_boxed.exe" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\level\level1.txt" />

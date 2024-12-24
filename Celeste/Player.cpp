@@ -4,16 +4,16 @@ Player::Player(const sf::Texture& texture) : GameObject(texture),
 speed(400.0f),
 velocityY(0.0f),
 onGround(false),
-jumpHeight(400.0f * 1.3f),     // Начальная сила прыжка
+jumpHeight(300.0f * 1.3f),     // Начальная сила прыжка
 airControlSpeed(400.0f),       // Скорость движения в воздухе
 gravity(980.0f * 2.5f),        // Сила гравитации
-fastFallMultiplier(2.0f),      // Множитель для ускоренного падения
+fastFallMultiplier(1.5f),      // Множитель для ускоренного падения
 maxFallSpeed(1000.0f),         // Ограничение скорости падения
 maxJumpTime(0.3f),             // Максимальное время для высокого прыжка
 currentJumpTime(0.0f),         // Изначально время прыжка равно нулю
 jumpPressed(false),
 dashAvailable(true),           // Рывок доступен
-dashSpeed(1000.0f),             // Скорость рывка
+dashSpeed(1100.0f),             // Скорость рывка
 dashTime(0.2f),                // Длительность рывка
 currentDashTime(0.0f),
 isDashing(false),
@@ -96,7 +96,6 @@ void Player::handleInput(float deltaTime) {
     }
 
 
-
      // Рывок
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) && dashAvailable && !isDashing) {
         isDashing = true;
@@ -123,7 +122,7 @@ void Player::handleInput(float deltaTime) {
 
 void Player::applyGravity(float deltaTime) {
     if (!onGround) {
-        velocityY += gravity * deltaTime;  // Применяем гравитацию
+        velocityY += gravity * deltaTime*0.8;  // Применяем гравитацию
 
         // Ограничиваем максимальную скорость падения
         if (velocityY > maxFallSpeed) {
