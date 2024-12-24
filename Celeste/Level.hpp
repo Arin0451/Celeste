@@ -8,8 +8,10 @@ public:
     Level(const std::string& levelData, const sf::Texture& groundTexture, const sf::Texture& wallTexture, const sf::Texture& strawberryTexture);
 
     const std::vector<sf::RectangleShape>& getGrounds() const;
+    const std::vector<sf::RectangleShape>& getStrawberries() const;
     const sf::Vector2f& getSpawnPoint() const; // Новый геттер для точки спавна
     void draw(sf::RenderWindow& window);
+    void loadNewLevel(const std::string& levelData, const sf::Texture& groundTexture, const sf::Texture& wallTexture, const sf::Texture& strawberryTexture);
 
 private:
     std::vector<sf::RectangleShape> grounds;
